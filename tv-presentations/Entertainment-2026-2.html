@@ -1126,6 +1126,10 @@ function showChannelEffect() {
        Esto es importante porque permite que el efecto
        vuelva a comenzar cada vez que cambiamos de canal.
     */
+	
+	/* SONIDO */
+    playStaticSound();
+	staticSound.volume = 0.6;
 
     const gif =
         document.getElementById("staticGif");
@@ -1433,7 +1437,29 @@ tvScreen.classList.add("tv-off");
 powerIndicator.style.opacity =
     "0.25";
 
+/* =========================================================
+   SONIDO DE ESTÁTICA DEL TV
+   ========================================================= */
 
+const staticSound = new Audio(
+    "tv-static-01.mp3"
+);
+
+staticSound.volume = 0.6;
+
+
+/* Reproducir sonido */
+
+function playStaticSound() {
+
+    staticSound.currentTime = 0;
+
+    staticSound.play().catch(() => {
+        // El navegador puede bloquear el audio
+        // hasta que el usuario interactúe con la página.
+    });
+
+}
 </script>
 
 
