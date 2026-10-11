@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#F5F5F0">
-  <title>Mi biblioteca digital</title>
+  <link rel="icon" href="https://teacherchriser.github.io/images/me.gif" type="image/x-icon">
+  <title>Libro Virtual</title>
   <style>
     :root {
       --page: #F5F5F0;
@@ -75,13 +76,16 @@
 
     /* ===== Visor de una sola página ===== */
     .reader {
-      height: clamp(420px, calc(100dvh - 340px), 860px);
-      border: 1px solid var(--line); border-radius: 10px;
-      background: var(--page);
-      padding: clamp(10px, 3vw, 28px) clamp(14px, 4vw, 38px);
-      box-shadow: 0 2px 8px rgba(0,0,0,.035);
-      position: relative; overflow: hidden;
-    }
+  width: 100%;
+  max-width: 560px;            /* ancho de la "página" */
+  margin: 0 auto;              /* centrada */
+  height: clamp(620px, calc(100dvh - 300px), 820px);   /* más alta que ancha */
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--page);
+  padding: clamp(10px, 3vw, 28px) clamp(14px, 4vw, 38px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.035);
+  position: relative; overflow: hidden;
+}
     #viewer { width: 100%; height: 100%; }
     #viewer .epub-container { margin: 0 auto; }
     .reader.empty { display: grid; place-items: center; text-align: center; color: var(--muted); }
@@ -101,13 +105,13 @@
     footer { text-align: center; padding: 14px 16px 20px; color: var(--muted); font-size: 13px; }
 
     @media (max-width: 480px) {
+	.reader { height: calc(100dvh - 300px); min-height: 500px; padding: 10px 12px; }
       header { padding: 14px 12px; gap: 11px; }
       .logo { width: 54px; height: 54px; flex-basis: 54px; }
       main { padding: 12px; }
       .toolbar { gap: 7px; }
       .button { padding: 9px 10px; min-height: 40px; font-size: 14px; }
       .chapters { flex-basis: 100%; }
-      .reader { height: clamp(380px, calc(100dvh - 380px), 760px); padding: 10px 12px; }
       .navigation { gap: 5px; }
       .page-count { font-size: 12px; }
     }
@@ -122,8 +126,8 @@
       </div>
       <div class="brand">
         <!-- Modifica el título y subtítulo a continuación -->
-        <h1>Virtual Reader</h1>
-        <p>Read and learn anytime, anywhere</p>
+        <h1><strong>Libro Virtual</strong></h1>
+        <p>Tales of Mistery and Imagination - By Edgar Allan Poe</p> <!-- Book's name -->
       </div>
     </header>
 
