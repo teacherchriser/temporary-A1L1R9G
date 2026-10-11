@@ -19,7 +19,7 @@
     html { background: var(--page); }
     body {
       margin: 0;
-      background: var(--page);
+      background: #E6E4DC;
       color: var(--ink);
       font-family: "Times New Roman", Times, serif;
       min-height: 100vh;
@@ -36,8 +36,8 @@
     .logo {
       width: 64px; height: 64px; flex: 0 0 64px;
       display: grid; place-items: center; overflow: hidden;
-      border: 1px dashed #aaa99e; border-radius: 8px;
-      color: var(--muted); background: rgba(255,255,255,.35);
+      border: 0px dashed #aaa99e; border-radius: 8px;
+      color: var(--muted); background: none;
       font-size: 12px; text-align: center;
     }
     .logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -97,11 +97,13 @@
       display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px;
       align-items: center; padding: 14px 0 4px;
     }
-    .navigation .button:last-child { justify-self: end; }
+    .navigation .button { width: 130px; }
+.navigation .button:first-child { justify-self: start; }
+.navigation .button:last-child { justify-self: end; }
     .page-count { text-align: center; color: var(--muted); font-size: 14px; white-space: nowrap; }
     .progress { height: 3px; background: var(--line); border-radius: 2px; margin-top: 8px; overflow: hidden; }
     .progress > span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s; }
-    .note { margin: 14px 2px 0; font-size: 13px; line-height: 1.45; color: var(--muted); }
+    .note { text-align:center; font-size: 13px; line-height: 1.45; color: var(--muted); }
     footer { text-align: center; padding: 14px 16px 20px; color: var(--muted); font-size: 13px; }
 
     @media (max-width: 480px) {
@@ -113,6 +115,7 @@
       .button { padding: 9px 10px; min-height: 40px; font-size: 14px; }
       .chapters { flex-basis: 100%; }
       .navigation { gap: 5px; }
+	  .navigation .button { width: 105px; }
       .page-count { font-size: 12px; }
     }
   </style>
@@ -127,7 +130,7 @@
       <div class="brand">
         <!-- Modifica el título y subtítulo a continuación -->
         <h1><strong>Libro Virtual</strong></h1>
-        <p>Tales of Mistery and Imagination - By Edgar Allan Poe</p> <!-- Book's name -->
+        <p><strong>Tales of Mistery and Imagination - By Edgar Allan Poe</strong></p> <!-- Book's name -->
       </div>
     </header>
 
@@ -160,9 +163,9 @@
       </nav>
       <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
-      <p class="note">Este lector abre automáticamente el archivo <strong>libro.epub</strong> ubicado en la misma carpeta que este HTML en tu repositorio. Usa los botones, las flechas del teclado o desliza el dedo para pasar de página.</p>
+      <p class="note"><strong>“El que lee mucho y anda mucho, ve mucho y sabe mucho.”</strong> Miguel de Cervantes, Don Quijote de la Mancha</p>
     </main>
-    <footer>Lector EPUB · Diseñado para pantallas pequeñas</footer>
+    <footer>Libro Virtual -  Diseñado por: Professor Christian Serrano</footer>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
