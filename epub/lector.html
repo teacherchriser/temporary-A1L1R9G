@@ -145,7 +145,7 @@
           <button class="button" id="fontUp" type="button" aria-label="Aumentar tamaño de letra">A+</button>
         </div>
         <button class="button" id="reset" type="button">Inicio</button>
-        <!-- <span class="status" id="status" aria-live="polite">Cargando libro…</span> -->
+        <span class="status" id="status" aria-live="polite">Cargando libro…</span>
       </div>
 
       <article class="reader empty" id="reader" aria-live="polite">
@@ -349,8 +349,10 @@
     fontDown.addEventListener('click', () => { fontSize = Math.max(70, fontSize - 10); applyFont(); });
 
     resetBtn.addEventListener('click', () => {
-      if (rendition && chapters.length) rendition.display(chapters[0].href);
-    });
+  if (!rendition) return;
+  const indice = chapters.find(c => /índice|indice|contenido|contents|table of contents/i.test(c.label));
+  rendition.display(indice ? indice.href : 0);
+});
 
     let resizeTimer;
     window.addEventListener('resize', () => {
