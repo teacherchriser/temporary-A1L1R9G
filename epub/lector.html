@@ -8,7 +8,7 @@
   <title>Libro Virtual</title>
   <style>
     :root {
-      --page: #F5F5F0;
+      --page: #FFFFFF;
       --ink: #292923;
       --muted: #6f7068;
       --line: #d9d9d0;
@@ -19,7 +19,7 @@
     html { background: var(--page); }
     body {
       margin: 0;
-      background: #E6E4DC;
+      background: #F5F5F0;
       color: var(--ink);
       font-family: "Times New Roman", Times, serif;
       min-height: 100vh;
@@ -130,7 +130,7 @@
       <div class="brand">
         <!-- Modifica el título y subtítulo a continuación -->
         <h1><strong>Libro Virtual</strong></h1>
-        <p><strong>Tales of Mistery and Imagination - By Edgar Allan Poe</strong></p> <!-- Book's name -->
+        <p style="font-size: 15px;"><strong>Tales of Mistery and Imagination - By Edgar Allan Poe</strong></p> <!-- Book's name -->
       </div>
     </header>
 
@@ -145,7 +145,7 @@
           <button class="button" id="fontUp" type="button" aria-label="Aumentar tamaño de letra">A+</button>
         </div>
         <button class="button" id="reset" type="button">Inicio</button>
-        <span class="status" id="status" aria-live="polite">Cargando libro…</span>
+        <!-- <span class="status" id="status" aria-live="polite">Cargando libro…</span> -->
       </div>
 
       <article class="reader empty" id="reader" aria-live="polite">
@@ -165,7 +165,7 @@
 
       <p class="note"><strong>“El que lee mucho y anda mucho, ve mucho y sabe mucho.”</strong> Miguel de Cervantes, Don Quijote de la Mancha</p>
     </main>
-    <footer>Libro Virtual -  Diseñado por: Professor Christian Serrano</footer>
+    <footer>Libro Virtual -  Diseñado por: <strong>Professor Christian Serrano</strong></footer>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
