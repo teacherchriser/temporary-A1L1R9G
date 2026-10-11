@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F5F5F0">
+  <title>Mi biblioteca digital</title>
+  <style>
+    :root {
+      --page: #F5F5F0;
+      --ink: #292923;
+      --muted: #6f7068;
+      --line: #d9d9d0;
+      --accent: #344b3b;
+      --panel: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--page); }
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: "Times New Roman", Times, serif;
+      min-height: 100vh;
+    }
+    button, input { font: inherit; }
+    .app { max-width: 900px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+    header {
+      display: flex; align-items: center; gap: 14px;
+      padding: 18px 16px 15px;
+      border-bottom: 1px solid var(--line);
+    }
+    .logo {
+      width: 64px; height: 64px; flex: 0 0 64px;
+      display: grid; place-items: center; overflow: hidden;
+      border: 1px dashed #aaa99e; border-radius: 8px;
+      color: var(--muted); background: rgba(255,255,255,.35);
+      font-size: 12px; text-align: center;
+    }
+    .logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .brand { min-width: 0; }
+    .brand h1 { margin: 0 0 5px; font-size: clamp(21px, 5vw, 29px); line-height: 1.05; font-weight: normal; }
+    .brand p { margin: 0; color: var(--muted); font-size: clamp(13px, 3.5vw, 16px); line-height: 1.25; }
+    main { padding: 16px; flex: 1; }
+    .toolbar {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      margin-bottom: 14px;
+    }
+    .button, .file-label {
+      appearance: none; border: 1px solid var(--line); border-radius: 8px;
+      background: var(--panel); color: var(--ink); padding: 10px 13px;
+      cursor: pointer; text-decoration: none; display: inline-flex;
+      align-items: center; justify-content: center; gap: 7px; min-height: 42px;
+      font-size: 15px;
+    }
+    .button.primary, .file-label.primary { background: var(--accent); border-color: var(--accent); color: white; }
+    .button:disabled { opacity: .4; cursor: not-allowed; }
+    #fileInput { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+    .status { color: var(--muted); font-size: 14px; margin-left: auto; }
+    .reader {
+      min-height: 48vh; border: 1px solid var(--line); border-radius: 10px;
+      background: var(--page); padding: clamp(18px, 5vw, 42px);
+      line-height: 1.75; font-size: 19px; overflow-wrap: anywhere;
+      box-shadow: 0 2px 8px rgba(0,0,0,.035);
+    }
+    .reader.empty { display: grid; place-items: center; text-align: center; color: var(--muted); }
+    .empty-inner { max-width: 360px; }
+    .empty-inner .book-icon { font-size: 42px; margin-bottom: 10px; }
+    .reader h1, .reader h2, .reader h3 { line-height: 1.25; }
+    .reader p { margin: 0 0 1em; }
+    .reader img { max-width: 100%; height: auto; }
+    .reader a { color: var(--accent); }
+    .reader pre { white-space: pre-wrap; }
+    .reader table { max-width: 100%; display: block; overflow-x: auto; }
+    .navigation {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px;
+      align-items: center; padding: 14px 0 4px;
+    }
+    .navigation .button:last-child { justify-self: end; }
+    .page-count { text-align: center; color: var(--muted); font-size: 14px; white-space: nowrap; }
+    .note { margin: 14px 2px 0; font-size: 13px; line-height: 1.45; color: var(--muted); }
+    footer { text-align: center; padding: 14px 16px 20px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 480px) {
+      header { padding: 14px 12px; gap: 11px; }
+      .logo { width: 54px; height: 54px; flex-basis: 54px; }
+      main { padding: 12px; }
+      .toolbar { gap: 7px; }
+      .button, .file-label { padding: 9px 10px; min-height: 40px; font-size: 14px; }
+      .status { width: 100%; margin-left: 2px; }
+      .reader { min-height: 52vh; padding: 20px 17px; font-size: 18px; }
+      .navigation { grid-template-columns: 1fr auto 1fr; gap: 5px; }
+      .page-count { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <!-- Cambia "logo.png" por la ruta de tu logo cuadrado. -->
+      <div class="logo" aria-label="Espacio para el logo">
+        <img src="https://teacherchriser.github.io/images/me.gif" alt="Logo del sitio" onerror="this.remove(); this.parentElement.textContent='TU LOGO';">
+      </div>
+      <div class="brand">
+        <!-- Modifica el título y subtítulo a continuación -->
+        <h1>Virtual Reader</h1>
+        <p>Read and learn anytime, anywhere</p>
+      </div>
+    </header>
+
+    <main>
+      <div class="toolbar">
+        <span class="file-label primary" aria-label="Libro cargado automáticamente">📖 Libro de la biblioteca</span>
+        <button class="button" id="fontDown" type="button" aria-label="Disminuir tamaño de letra">A−</button>
+        <button class="button" id="fontUp" type="button" aria-label="Aumentar tamaño de letra">A+</button>
+        <button class="button" id="reset" type="button">Inicio</button>
+        <span class="status" id="status" aria-live="polite">Cargando libro…</span>
+      </div>
+
+      <article class="reader empty" id="reader" aria-live="polite">
+        <div class="empty-inner">
+          <div class="book-icon">📖</div>
+          <strong>Tu próxima lectura comienza aquí</strong>
+          <p>El libro de esta página se abrirá automáticamente.</p>
+        </div>
+      </article>
+
+      <nav class="navigation" aria-label="Navegación del libro">
+        <button class="button" id="previous" type="button" disabled>← Anterior</button>
+        <span class="page-count" id="pageCount">Capítulo 0 de 0</span>
+        <button class="button" id="next" type="button" disabled>Siguiente →</button>
+      </nav>
+      <p class="note">Este lector abre automáticamente el archivo <strong>libro.epub</strong> ubicado en la misma carpeta que este HTML en tu repositorio. La navegación se organiza por secciones o capítulos del libro.</p>
+    </main>
+    <footer>Lector EPUB · Diseñado para pantallas pequeñas</footer>
+  </div>
+
+  <!-- epub.js procesa el archivo EPUB; JSZip es una dependencia habitual de epub.js. -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
+  <script>
+    // Nombre del EPUB que subirás a la misma carpeta de este archivo.
+    const EPUB_URL = 'Poe.epub';
+    const reader = document.getElementById('reader');
+    const status = document.getElementById('status');
+    const pageCount = document.getElementById('pageCount');
+    const previousBtn = document.getElementById('previous');
+    const nextBtn = document.getElementById('next');
+    const fontUp = document.getElementById('fontUp');
+    const fontDown = document.getElementById('fontDown');
+    const resetBtn = document.getElementById('reset');
+
+    let book = null;
+    let rendition = null;
+    let sections = [];
+    let currentIndex = 0;
+    let fontSize = 100;
+    let currentObjectUrl = null;
+
+    function setStatus(message) { status.textContent = message; }
+
+    function updateNavigation() {
+      const total = sections.length;
+      pageCount.textContent = total ? `Capítulo ${Math.min(currentIndex + 1, total)} de ${total}` : 'Capítulo 0 de 0';
+      previousBtn.disabled = !total || currentIndex <= 0;
+      nextBtn.disabled = !total || currentIndex >= total - 1;
+    }
+
+    function showEmpty(message) {
+      reader.classList.add('empty');
+      reader.innerHTML = `<div class="empty-inner"><div class="book-icon">📖</div><strong>${message}</strong><p>Selecciona un archivo .epub para comenzar a leer.</p></div>`;
+    }
+
+    async function openBookFromRepository() {
+      try {
+        setStatus('Cargando libro…');
+        previousBtn.disabled = true;
+        nextBtn.disabled = true;
+
+        if (rendition) {
+          rendition.destroy();
+          rendition = null;
+        }
+        if (book) {
+          book.destroy();
+          book = null;
+        }
+
+        book = ePub(EPUB_URL);
+        await book.ready;
+        const navigation = await book.loaded.navigation;
+        sections = (navigation.toc || []).map(item => ({
+          label: item.label || 'Sección',
+          href: item.href
+        }));
+        if (!sections.length) {
+          sections = [{ label: 'Inicio', href: book.spine?.spineItems?.[0]?.href || '' }];
+        }
+
+        reader.classList.remove('empty');
+        reader.innerHTML = '';
+        rendition = book.renderTo(reader, {
+          width: '100%',
+          height: '100%',
+          spread: 'none',
+          flow: 'scrolled-doc',
+          allowScriptedContent: false
+        });
+        rendition.themes.default({
+          'body': {
+            'font-family': '"Times New Roman", Times, serif !important',
+            'background': '#F5F5F0 !important',
+            'color': '#292923 !important',
+            'line-height': '1.75 !important',
+            'padding': '0 !important'
+          },
+          'p': { 'font-family': '"Times New Roman", Times, serif !important' },
+          'a': { 'color': '#344b3b !important' }
+        });
+        rendition.themes.fontSize(fontSize + '%');
+        rendition.on('relocated', location => {
+          const href = location?.start?.href;
+          const idx = sections.findIndex(s => s.href === href);
+          if (idx >= 0) currentIndex = idx;
+          updateNavigation();
+        });
+        await rendition.display();
+        currentIndex = 0;
+        updateNavigation();
+        setStatus('Libro cargado automáticamente');
+      } catch (error) {
+        console.error(error);
+        setStatus('No se pudo cargar libro.epub');
+        showEmpty('No se encontró libro.epub');
+        reader.querySelector('.empty-inner p').textContent =
+          'Sube el archivo libro.epub a la misma carpeta de este HTML en GitHub y vuelve a abrir la página.';
+      }
+    }
+
+    async function goToSection(index) {
+      if (!rendition || index < 0 || index >= sections.length) return;
+      currentIndex = index;
+      try {
+        await rendition.display(sections[index].href);
+        updateNavigation();
+      } catch (error) {
+        setStatus('No se pudo abrir esa sección.');
+      }
+    }
+
+    // Carga automática al abrir la página.
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', openBookFromRepository);
+    } else {
+      openBookFromRepository();
+    }
+    previousBtn.addEventListener('click', () => goToSection(currentIndex - 1));
+    nextBtn.addEventListener('click', () => goToSection(currentIndex + 1));
+    fontUp.addEventListener('click', () => {
+      fontSize = Math.min(180, fontSize + 10);
+      if (rendition) rendition.themes.fontSize(fontSize + '%');
+    });
+    fontDown.addEventListener('click', () => {
+      fontSize = Math.max(70, fontSize - 10);
+      if (rendition) rendition.themes.fontSize(fontSize + '%');
+    });
+    resetBtn.addEventListener('click', () => {
+      if (rendition && sections.length) goToSection(0);
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Navegación con flechas del teclado en computadores.
+    document.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft' && !previousBtn.disabled) goToSection(currentIndex - 1);
+      if (event.key === 'ArrowRight' && !nextBtn.disabled) goToSection(currentIndex + 1);
+    });
+  </script>
+</body>
+</html>
