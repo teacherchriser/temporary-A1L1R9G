@@ -8,7 +8,8 @@
   <title>Libro Virtual</title>
   <style>
     :root {
-      --page: #FFFFFF;
+      --page: #F5F5F0;     /* fondo de la web */
+      --sheet: #FFFFFF;    /* fondo de la "página" del visor */
       --ink: #292923;
       --muted: #6f7068;
       --line: #d9d9d0;
@@ -16,10 +17,10 @@
       --panel: #ffffff;
     }
     * { box-sizing: border-box; }
-    html { 'background': '#F5F5F0 !important' }
+    html { background: var(--page); }
     body {
       margin: 0;
-      background: #F5F5F0;
+      background: var(--page);
       color: var(--ink);
       font-family: "Times New Roman", Times, serif;
       min-height: 100vh;
@@ -36,7 +37,7 @@
     .logo {
       width: 64px; height: 64px; flex: 0 0 64px;
       display: grid; place-items: center; overflow: hidden;
-      border: 0px dashed #aaa99e; border-radius: 8px;
+      border: 0; border-radius: 8px;
       color: var(--muted); background: none;
       font-size: 12px; text-align: center;
     }
@@ -76,18 +77,18 @@
 
     /* ===== Visor de una sola página ===== */
     .reader {
-  width: 100%;
-  max-width: 560px;            /* ancho de la "página" */
-  margin: 0 auto;              /* centrada */
-  height: clamp(620px, calc(100dvh - 300px), 820px);   /* más alta que ancha */
-  border: 1px solid var(--line); border-radius: 10px;
-  background: #FFFFFF;
-  padding: clamp(10px, 3vw, 28px) clamp(14px, 4vw, 38px);
-  box-shadow: 0 2px 8px rgba(0,0,0,.035);
-  position: relative; overflow: hidden;
-}
-    #viewer { width: 100%; height: 100%; }
-    #viewer .epub-container { margin: 0 auto; }
+      width: 100%;
+      max-width: 560px;                                   /* ancho de la "página" */
+      margin: 0 auto;                                     /* centrada */
+      height: clamp(620px, calc(100dvh - 300px), 820px);  /* más alta que ancha */
+      border: 1px solid var(--line); border-radius: 10px;
+      background: var(--sheet);
+      padding: clamp(10px, 3vw, 28px) clamp(14px, 4vw, 38px);
+      box-shadow: 0 2px 8px rgba(0,0,0,.035);
+      position: relative; overflow: hidden;
+    }
+    #viewer { width: 100%; height: 100%; background: var(--sheet); }
+    #viewer .epub-container { margin: 0 auto; background: var(--sheet); }
     .reader.empty { display: grid; place-items: center; text-align: center; color: var(--muted); }
     .empty-inner { max-width: 360px; line-height: 1.5; }
     .empty-inner .book-icon { font-size: 42px; margin-bottom: 10px; }
@@ -98,24 +99,24 @@
       align-items: center; padding: 14px 0 4px;
     }
     .navigation .button { width: 130px; }
-.navigation .button:first-child { justify-self: start; }
-.navigation .button:last-child { justify-self: end; }
+    .navigation .button:first-child { justify-self: start; }
+    .navigation .button:last-child { justify-self: end; }
     .page-count { text-align: center; color: var(--muted); font-size: 14px; white-space: nowrap; }
     .progress { height: 3px; background: var(--line); border-radius: 2px; margin-top: 8px; overflow: hidden; }
     .progress > span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s; }
-    .note { text-align:center; font-size: 13px; line-height: 1.45; color: var(--muted); }
+    .note { text-align: center; font-size: 13px; line-height: 1.45; color: var(--muted); }
     footer { text-align: center; padding: 14px 16px 20px; color: var(--muted); font-size: 13px; }
 
     @media (max-width: 480px) {
-	.reader { height: calc(100dvh - 300px); min-height: 500px; padding: 10px 12px; }
       header { padding: 14px 12px; gap: 11px; }
       .logo { width: 54px; height: 54px; flex-basis: 54px; }
       main { padding: 12px; }
       .toolbar { gap: 7px; }
       .button { padding: 9px 10px; min-height: 40px; font-size: 14px; }
       .chapters { flex-basis: 100%; }
+      .reader { height: calc(100dvh - 300px); min-height: 500px; padding: 10px 12px; }
       .navigation { gap: 5px; }
-	  .navigation .button { width: 105px; }
+      .navigation .button { width: 105px; }
       .page-count { font-size: 12px; }
     }
   </style>
@@ -283,7 +284,7 @@
         });
 
         rendition.themes.default({
-          'html, body': { 'background': '#F5F5F0 !important' },
+          'html, body': { 'background': '#FFFFFF !important' },
           'body': {
             'font-family': '"Times New Roman", Times, serif !important',
             'color': '#292923 !important',
