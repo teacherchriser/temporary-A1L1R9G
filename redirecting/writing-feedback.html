@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a43b6">
+  <title>Writing Feedback</title>
+	<link rel="icon" href="https://teacherchriser.github.io/images/me.gif" type="image/x-icon">
+ <style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+</style>
+
+  <style>
+    body {
+	  background-color: #F4F1E8;
+      margin: 0;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: "Special Elite", system-ui;
+		font-weight: 400;
+		font-style: normal;
+      text-align: center;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    img { max-width: 100%; height: auto; }
+    a { margin-top: 16px; }
+    p { margin-top: 5px; color: #000000; }
+  </style>
+</head>
+<body>
+<p style="font-size: 30px; color: #0a43b6; font-weight: bold; line-height: 0px;">Writing Feedback</p>
+<p style="font-size: 15px; color: #A1A1A1; font-weight: bold; line-height: 0px;">For practice and improvement before the Final Writing evaluation</p>
+
+  <!-- ✅ IMAGEN: reemplaza el valor de src con la URL de tu imagen -->
+  <img src="https://static.vecteezy.com/system/resources/thumbnails/044/764/402/small/paper-and-pencil-icon-3d-rendering-illustration-png.png" alt="Imagen" width="400" style="border: 0px solid #FFFFFF; border-radius: 15px;">
+  
+
+  <!-- ✅ TEXTO CON HIPERVÍNCULO (se abre en una pestaña nueva)
+  
+  <img src="Instructions-02.png" alt="Imagen" width="400" style="border: 7px solid #FFFFFF; border-radius: 15px;">
+  
+  <a href="#" target="_blank" rel="noopener noreferrer" style="font-size: 15px; color: #0a43b6;">Ayuda a mantener viva esta iniciativa dando click aquí y dejando tu comentario, tus ideas o sugerencias para el siguiente libro.</a>
+  -->
+</br>
+<p style="font-size: 10px; color: #626568;">Creación: Professor Christian Serrano</p>
+
+
+<p style="font-size: 17px; color: #bf2024; max-width: 600px; line-height: 17px;">Antes de acceder a la retroalimentación de tu Writing, primero debes hacer la Evaluación Docente del Profesor Christian Serrano.</br></br>Mientras esperas, realiza esta evaluación y en <span id="contador" style="color: navy;"></span> segundos (10 minutos) se te rediccionará automáticamente a la retroalimentación de tus escritos.</br></br>
+Por favor no cierres esta página mientras haces esta Evaluación Docente.</p>
+
+  <script>
+    // ⚙️ CONFIGURACIÓN: cambia aquí los segundos y la URL de destino
+    var SEGUNDOS = 600;
+    var URL_DESTINO = "https://teacherchris.gnomio.com/mod/quiz/view.php?id=904";
+
+    // No necesitas modificar nada de aquí hacia abajo
+    var restante = SEGUNDOS;
+    var contador = document.getElementById("contador");
+    contador.textContent = restante;
+
+    var intervalo = setInterval(function () {
+      restante--;
+      contador.textContent = restante;
+      if (restante <= 0) {
+        clearInterval(intervalo);
+        window.location.href = URL_DESTINO;
+      }
+    }, 1000);
+  </script>
+  
+  <!-- SITE COUNTER -->
+	<script data-goatcounter="https://teacherchriser.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+		
+<script> 
+document.oncontextmenu = function() { 
+    return false; 
+};
+</script>
+
+</body>
+</html>
